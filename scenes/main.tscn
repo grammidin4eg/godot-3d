@@ -1,18 +1,36 @@
-[gd_scene load_steps=4 format=3 uid="uid://bqfjgxhj4adl2"]
+[gd_scene load_steps=12 format=3 uid="uid://bqfjgxhj4adl2"]
+
+[ext_resource type="Texture2D" uid="uid://qei3wob0edcj" path="res://textures/raw_plank_wall_1k/raw_plank_wall_diff_1k.png" id="1_4b8ra"]
+[ext_resource type="Texture2D" uid="uid://m65shj1ox6r2" path="res://textures/rocky_trail/rocky_trail_02_diff_4k.png" id="1_jesu8"]
+[ext_resource type="Texture2D" uid="uid://dftnbb30tpq2t" path="res://textures/rocky_trail/rocky_trail_02_nor_gl_4k.png" id="2_btxlv"]
+[ext_resource type="Texture2D" uid="uid://nkj6ce1dx5ds" path="res://textures/rocky_trail/rocky_trail_02_rough_4k.png" id="3_e11sf"]
+[ext_resource type="Texture2D" uid="uid://dglocgoto164n" path="res://textures/raw_plank_wall_1k/raw_plank_wall_nor_gl_1k.png" id="5_jyymh"]
+[ext_resource type="Texture2D" uid="uid://cahvy6bmuejwa" path="res://textures/raw_plank_wall_1k/raw_plank_wall_rough_1k.png" id="6_6yaxf"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_a6hoj"]
 size = Vector2(100, 100)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vobpk"]
+albedo_texture = ExtResource("1_jesu8")
+roughness_texture = ExtResource("3_e11sf")
 normal_enabled = true
+normal_texture = ExtResource("2_btxlv")
 uv1_scale = Vector3(6, 6, 6)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_tshj1"]
 
+[sub_resource type="BoxMesh" id="BoxMesh_ewi7x"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wu1ga"]
+albedo_texture = ExtResource("1_4b8ra")
+roughness_texture = ExtResource("6_6yaxf")
+normal_enabled = true
+normal_texture = ExtResource("5_jyymh")
+
 [node name="Main" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.73373, -0.588413, 0.339721, 0, 0.5, 0.866025, -0.679441, -0.635429, 0.366865, -1, 10, -1)
+transform = Transform3D(0.189095, 0.850401, -0.490979, 0, 0.5, 0.866025, 0.981959, -0.163761, 0.0945477, -1, 10, -1)
 shadow_enabled = true
 
 [node name="Ground" type="MeshInstance3D" parent="."]
@@ -22,3 +40,8 @@ surface_material_override/0 = SubResource("StandardMaterial3D_vobpk")
 [node name="Player" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.940497, 0)
 mesh = SubResource("CapsuleMesh_tshj1")
+
+[node name="Box" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.76062, 0.569063, -2.02564)
+mesh = SubResource("BoxMesh_ewi7x")
+surface_material_override/0 = SubResource("StandardMaterial3D_wu1ga")
