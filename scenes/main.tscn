@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://bqfjgxhj4adl2"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_a6hoj"]
+size = Vector2(100, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vobpk"]
+normal_enabled = true
+uv1_scale = Vector3(6, 6, 6)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_tshj1"]
+
+[node name="Main" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.73373, -0.588413, 0.339721, 0, 0.5, 0.866025, -0.679441, -0.635429, 0.366865, -1, 10, -1)
+shadow_enabled = true
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_a6hoj")
+surface_material_override/0 = SubResource("StandardMaterial3D_vobpk")
+
+[node name="Player" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.940497, 0)
+mesh = SubResource("CapsuleMesh_tshj1")
