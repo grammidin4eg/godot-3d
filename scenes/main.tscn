@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bqfjgxhj4adl2"]
+[gd_scene load_steps=19 format=3 uid="uid://bqfjgxhj4adl2"]
 
 [ext_resource type="Texture2D" uid="uid://qei3wob0edcj" path="res://textures/raw_plank_wall_1k/raw_plank_wall_diff_1k.png" id="1_4b8ra"]
 [ext_resource type="Texture2D" uid="uid://m65shj1ox6r2" path="res://textures/rocky_trail/rocky_trail_02_diff_4k.png" id="1_jesu8"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://nkj6ce1dx5ds" path="res://textures/rocky_trail/rocky_trail_02_rough_4k.png" id="3_e11sf"]
 [ext_resource type="Texture2D" uid="uid://dglocgoto164n" path="res://textures/raw_plank_wall_1k/raw_plank_wall_nor_gl_1k.png" id="5_jyymh"]
 [ext_resource type="Texture2D" uid="uid://cahvy6bmuejwa" path="res://textures/raw_plank_wall_1k/raw_plank_wall_rough_1k.png" id="6_6yaxf"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="7_n3nto"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8gdfc"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -30,6 +31,9 @@ normal_enabled = true
 normal_texture = ExtResource("2_btxlv")
 uv1_scale = Vector3(6, 6, 6)
 
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_dg5ew"]
+data = PackedVector3Array(50, 0, 50, -50, 0, 50, 50, 0, -50, -50, 0, 50, -50, 0, -50, 50, 0, -50)
+
 [sub_resource type="BoxMesh" id="BoxMesh_ewi7x"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wu1ga"]
@@ -37,6 +41,9 @@ albedo_texture = ExtResource("1_4b8ra")
 roughness_texture = ExtResource("6_6yaxf")
 normal_enabled = true
 normal_texture = ExtResource("5_jyymh")
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_1qa2r"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_tshj1"]
 
@@ -56,13 +63,24 @@ shadow_enabled = true
 mesh = SubResource("PlaneMesh_a6hoj")
 surface_material_override/0 = SubResource("StandardMaterial3D_vobpk")
 
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_dg5ew")
+
 [node name="Box" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.76062, 0.569063, -2.02564)
 mesh = SubResource("BoxMesh_ewi7x")
 surface_material_override/0 = SubResource("StandardMaterial3D_wu1ga")
 
+[node name="StaticBody3D" type="StaticBody3D" parent="Box"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_1qa2r")
+
 [node name="Player" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.13446, 0)
+script = ExtResource("7_n3nto")
 
 [node name="PlayerView" type="MeshInstance3D" parent="Player"]
 mesh = SubResource("CapsuleMesh_tshj1")
